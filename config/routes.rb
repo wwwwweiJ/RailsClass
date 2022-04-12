@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   delete "/resumes/:id" , to: "resumes#destroy"
   get "/resumes/:id/edit" , to: "resumes#edit" , as:"edit_resume"
   patch "/resumes/:id" , to:"resumes#update"
-  
+  get "/users/sign_up" , to: "users#new"
+  post "/users" , to: "users#create"
 end
