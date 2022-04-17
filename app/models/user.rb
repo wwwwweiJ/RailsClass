@@ -1,8 +1,9 @@
 class User < ApplicationRecord
+    has_many :resumes
     validates :email , presence: true , uniqueness: true
     validates :username , presence: true , uniqueness: true
     validates :password , presence: true , confirmation: true , length: { minimum: 6 }
-    before_save :encrypt_password
+    before_create :encrypt_password
 
     def self.login(user_data)
         account = user_data[:account]

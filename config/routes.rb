@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
+  root "resumes#index"
+  get "/" , to: "pages#home"
+  resources :resumes do 
+    collection do 
+      get "/my" , to:"resumes#my" 
+      get "/my/edit" , to:"resumes#edit"
+      post "/my" , to:"resumes#update"
+      delete "/my" , to:"resumes#destroy"
+    end
+  end
 
-  resources :resumes
 
-  resource :users , only: [ :create ] do 
+
+
+  resource :users , only: [ :create  ] do 
     get :sign_up
     get :sign_in
   end
-
-  resources :sessions , only: [ :create , :destroy ] 
-  root "resumes#index"
-  get "/" , to: "pages#home"
+  resource :sessions , only: [ :create , :destroy ] 
   # get "/resumes" , to: "resumes#index"
   # get "/resumes/new" , to: "resumes#new"
   # post "/resumes" , to: "resumes#create"

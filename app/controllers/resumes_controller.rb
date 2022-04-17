@@ -1,9 +1,17 @@
 class ResumesController < ApplicationController
 
-before_action :resume_find , only: [:show , :destroy , :edit , :update]
+before_action :resume_find , only: [:show]
+before_action :find_my_resume , only: [ :destroy , :edit , :update]
+before_action :authenticate_user , except: [:index , :show]
+
+  include UsersHelper
 
   def index
-    @resumes = Resume.all
+    @resumes = Resume.published
+  end
+
+  def my
+    @resumes = current_user.resumes
   end
 
   def new
@@ -11,8 +19,8 @@ before_action :resume_find , only: [:show , :destroy , :edit , :update]
   end
 
   def create
-    @resume = Resume.new(params_resume)
-
+    @resume = current_user.resumes.new(params_resume)
+    
     if @resume.save
       redirect_to root_path , notice: "新增成功"
     else
@@ -21,6 +29,7 @@ before_action :resume_find , only: [:show , :destroy , :edit , :update]
   end
 
   def show
+
   end
 
   def destroy 
@@ -50,5 +59,15 @@ private
 
   def resume_find
     @resume = Resume.find(params[:id])
+      if user_signed_in?
+        find_my_resume
+      else
+        @resume = Resume.published.find(params[:id])
+      end
+  end
+
+  def find_my_resume
+    # @resume = Resume.find_by!(id: params[id] , user_id: current_user.id)
+    @resume = current_user.resumes.find(params[:id])
   end
 end
