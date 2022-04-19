@@ -4,4 +4,5 @@
 
 <article data-controller="markdown-viewer"><%= @resume.content %></article>
 
-<h3><%= link_to "修改" , edit_resume_path%></h3>
+<h3><%= if current_user && current_user.id === session[:thankyou9527] 
+link_to "修改" , edit_resume_path end%></h3>

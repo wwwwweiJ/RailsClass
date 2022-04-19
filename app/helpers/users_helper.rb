@@ -5,4 +5,9 @@ module UsersHelper
     def current_user 
         User.find_by(id: session[:thankyou9527])
     end
+    def markdown(content)
+        tag.article data: {controller: "markdown-viewer"} do 
+            content
+        end
+    end
 end

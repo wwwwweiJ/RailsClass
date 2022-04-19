@@ -1,7 +1,7 @@
 class ResumesController < ApplicationController
 
 before_action :resume_find , only: [:show]
-before_action :find_my_resume , only: [ :destroy , :edit , :update]
+before_action :find_my_resume , only: [ :destroy , :edit , :update  , :pin]
 before_action :authenticate_user , except: [:index , :show]
 
   include UsersHelper
@@ -50,6 +50,12 @@ before_action :authenticate_user , except: [:index , :show]
     end
   end
 
+  def pin
+    current_user.resumes.update_all("pinned = false")
+    @resume.update(pinned: true) 
+    redirect_to my_resumes_path , notice: "預設成功"
+  end
+
 
 private
 
@@ -59,14 +65,14 @@ private
 
   def resume_find
       if user_signed_in?
-        @resume = current_user.resumes.find(params[:id])
+        @resume = current_user.resumes.friendly.find(params[:id])
       else
-        @resume = Resume.published.find(params[:id])
+        @resume = Resume.published.friendly.find(params[:id])
       end
   end
 
   def find_my_resume
     # @resume = Resume.find_by!(id: params[id] , user_id: current_user.id)
-    @resume = current_user.resumes.find(params[:id])
+    @resume = current_user.resumes.friendly.find(params[:id])
   end
 end

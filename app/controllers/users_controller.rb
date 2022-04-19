@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+    include UsersHelper
+
     def sign_up
         @user = User.new
     end
@@ -11,6 +14,11 @@ class UsersController < ApplicationController
         end
     end
     def sign_in
+    end
+    def default_resume
+        @user = User.find_by!(username: params[:user_id])
+        
+        @resume = @user.default_resume
     end
 
 private

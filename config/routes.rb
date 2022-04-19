@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   root "resumes#index"
-  get "/" , to: "pages#home"
+  
+  get "/@:user_id" , to:"users#default_resume"
+  get "/@:user_id/:id" , to:"resumes#show" , as:"user_resume"
+  
+
   resources :resumes do 
     collection do 
-      get "/my" , to:"resumes#my" 
-      get "/my/edit" , to:"resumes#edit"
-      post "/my" , to:"resumes#update"
-      delete "/my" , to:"resumes#destroy"
+      get :my
+    end
+    member do 
+      patch :pin
     end
   end
 

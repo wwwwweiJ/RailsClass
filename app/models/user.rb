@@ -5,6 +5,10 @@ class User < ApplicationRecord
     validates :password , presence: true , confirmation: true , length: { minimum: 6 }
     before_create :encrypt_password
 
+    def default_resume 
+        resumes.first 
+    end
+
     def self.login(user_data)
         account = user_data[:account]
         password = user_data[:password]
