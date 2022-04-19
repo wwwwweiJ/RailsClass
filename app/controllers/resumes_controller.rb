@@ -34,7 +34,7 @@ before_action :authenticate_user , except: [:index , :show]
 
   def destroy 
     @resume.destroy if @resume
-    redirect_to "/" , alert: "刪除成功"
+    redirect_to my_resumes_path , alert: "刪除成功"
   end
 
   def edit
@@ -44,7 +44,7 @@ before_action :authenticate_user , except: [:index , :show]
   def update
     @resume.update(params_resume)
     if @resume.save
-      redirect_to"/" , notice: "更新成功"
+      redirect_to my_resumes_path , notice: "更新成功"
     else
       render :edit
     end
@@ -58,9 +58,8 @@ private
   end
 
   def resume_find
-    @resume = Resume.find(params[:id])
       if user_signed_in?
-        find_my_resume
+        @resume = current_user.resumes.find(params[:id])
       else
         @resume = Resume.published.find(params[:id])
       end

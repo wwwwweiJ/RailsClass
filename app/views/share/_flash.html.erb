@@ -1,7 +1,7 @@
   <div>
-    <div class="flash" >
+    <div data-controller="flash" class="flash" >
       <%= flash[:notice]%>
-      <button class="Btn">X</button>
+      <button id="Btn" data-action="click->flash#close">X</button>
     </div>
   </div>
   

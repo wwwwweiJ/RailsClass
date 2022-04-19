@@ -5,10 +5,9 @@
         <%= form.label :title , "標題" %>
         <%= form.text_field :title , autofocus: true %>
     </div>
-    <br>
     <div class="field">
         <%= form.label :content , "內容"%>
-        <%= form.text_area :content %>
+        <%= form.text_area :content ,data: { controller: "markdown-editor"}%>
     </div>
     <div class="field">
         <%= form.label :status , "狀態" %>
