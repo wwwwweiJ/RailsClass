@@ -1,8 +1,7 @@
 <h1><%= @resume.title %>的履歷</h1>
 
-
+<%= image_tag @resume.mugshot.variant(resize_to_limit: [100, 100]) if @resume.mugshot.attached? %>
 
 <article data-controller="markdown-viewer"><%= @resume.content %></article>
 
-<h3><%= if current_user && current_user.id === session[:thankyou9527] 
-link_to "修改" , edit_resume_path end%></h3>
+<h3><%=  link_to "修改" , edit_resume_path if policy(:resume).edit? %></h3>g

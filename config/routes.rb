@@ -22,13 +22,9 @@ Rails.application.routes.draw do
     get :sign_in
   end
   resource :sessions , only: [ :create , :destroy ] 
-  # get "/resumes" , to: "resumes#index"
-  # get "/resumes/new" , to: "resumes#new"
-  # post "/resumes" , to: "resumes#create"
-  # get "/resumes/:id" , to: "resumes#show" , as: "resume"
-  # delete "/resumes/:id" , to: "resumes#destroy"
-  # get "/resumes/:id/edit" , to: "resumes#edit" , as:"edit_resume"
-  # patch "/resumes/:id" , to:"resumes#update"
-  # get "/users/sign_up" , to: "users#new"
-  # post "/users" , to: "users#create"
+
+  namespace :admin do 
+    resources :vendors , except:[:show]
+  end
+
 end

@@ -1,6 +1,10 @@
 class Resume < ApplicationRecord
     extend FriendlyId
     friendly_id :rendom_slug , use: :slugged
+
+    has_one_attached :mugshot do |image|
+        image.variant :thumb , resize_to_limit:[200,200]
+    end
     
     belongs_to :user 
     validates :title , presence: true

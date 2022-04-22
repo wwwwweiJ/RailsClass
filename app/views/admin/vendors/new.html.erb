@@ -1,0 +1,25 @@
+<h1>新增廠商</h1>
+
+<%= form_with(model: @vendor , method: :post , url: admin_vendors_path ) do |form| %>
+
+  <div class="field">
+        <%= form.label :email , "信箱" %>
+        <%= form.email_field :email , autofocus: true %>
+    </div>
+    <br>
+    <div class="field">
+        <%= form.label :username , "使用者名稱"%>
+        <%= form.text_field :username %>
+    </div>
+    <div class="field">
+        <%= form.label :password , "密碼" %>
+        <%= form.password_field :password %>
+    </div>
+    <div class="field">
+        <%= form.label :password_confirmation , "確認密碼" %>
+        <%= form.password_field :password_confirmation %>
+    </div>
+    
+    <%= form.submit %>
+
+<% end %>
